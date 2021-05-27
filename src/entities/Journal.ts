@@ -17,23 +17,23 @@ export class Journal extends BaseEntity {
 
     @Field({ nullable: true })
     @Column({ nullable: true, type: "text" })
-    actions: string;
+    actions!: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true, type: "text" })
-    greatfullness: string;
+    greatfullness!: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    affirmation: string;
+    affirmation!: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true, type: "text" })
-    highlights: string;
+    highlights!: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    improvements: string;
+    improvements!: string;
 
     @Field(() => String)
     @Column({ type: Date, default: new Date() })

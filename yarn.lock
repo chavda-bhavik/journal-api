@@ -796,6 +796,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/faker@^5.5.5":
+  version "5.5.5"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.5.5.tgz#b2e60fd1c3e2e5911791425b37b936faf4adc1af"
+  integrity sha512-TNR5SjCg8sSfU4bdXsPJlpLXOH4YGBCVggvdZnttD2SMiONSxfJm231Nxn1VaQWWF2Twl4Wr2KC1hYaNd4M5Zw==
+
 "@types/fs-capacitor@*":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/fs-capacitor/-/fs-capacitor-2.0.0.tgz#17113e25817f584f58100fb7a08eed288b81956e"
@@ -2105,6 +2110,11 @@ express@^4.17.1:
     type-is "~1.6.18"
     utils-merge "1.0.1"
     vary "~1.1.2"
+
+faker@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-5.5.3.tgz#c57974ee484431b25205c2c8dc09fda861e51e0e"
+  integrity sha512-wLTv2a28wjUyWkbnX7u/ABZBkUkIF2fCd73V6P2oFqEGEktDfzWx4UxrSqtPRw0xPRAcjeAOIiJWqZm3pP4u3g==
 
 fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0:
   version "2.1.0"
