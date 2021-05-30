@@ -1,4 +1,4 @@
-import { Field, InputType } from "type-graphql";
+import { Field, InputType, ObjectType, Int } from "type-graphql";
 
 @InputType()
 export class JournalInput {
@@ -20,4 +20,19 @@ export class JournalInput {
 
     @Field({ nullable: true })
     improvements: string;
+}
+
+@ObjectType()
+export class GetAllJournalOutput {
+    @Field(() => Int)
+    id: number;
+
+    @Field(() => String)
+    date: Date;
+
+    @Field(() => String)
+    title: String;
+
+    @Field(() => String, { nullable: true })
+    text: String;
 }

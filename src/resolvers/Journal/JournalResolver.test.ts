@@ -35,14 +35,13 @@ const journalMutationQuery = `
     }
 `
 const allJournalsQuery = `
-    query {
-        getAllJournals {
+    query Journals($date: DateTime) {
+        getAllJournals(
+            monthDate: $date
+        ) {
             id
-            actions
-            greatfullness
-            affirmation
-            highlights
-            improvements
+            title
+            text
             date
         }
     }
@@ -77,9 +76,12 @@ describe('journal operations', () => {
             }
         });
     });
-    it('should get all journal entries', async () => {
+    it('should get all journal entries for the date month', async () => {
         let response = await gCall({
-            source: allJournalsQuery
+            source: allJournalsQuery,
+            variableValues: {
+                date
+            }
         });
         expect(response && response?.data?.getAllJournals.length).toBeGreaterThan(0);
     });

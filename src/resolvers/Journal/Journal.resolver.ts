@@ -1,8 +1,15 @@
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 import { Journal } from "../../entities/Journal";
-import { JournalInput } from "./JournalInput";
+import { GetLastFirstDates } from "./GetLastFirstDates";
+import { JournalInput, GetAllJournalOutput } from "./JournalTypes";
+import { getConnection } from "typeorm";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+let titles: Partial<Journal> = {
+    "affirmation": "YOUR DAILY AFFIRMATION",
+    "greatfullness": "WHAT I WAS GREATEFUL FOR"
+}
 
 @Resolver()
 export class JournalResolver {
@@ -44,8 +51,45 @@ export class JournalResolver {
         return journal
     }
     
-    @Query( () => [Journal])
-    async getAllJournals(): Promise<Journal[]> {
-        return Journal.find();
+    @Query( () => [GetAllJournalOutput])
+    async getAllJournals(
+        @Arg('monthDate', { nullable: true }) monthDate?: Date
+    ): Promise<GetAllJournalOutput[]> {
+        let dates;
+        if(monthDate) {
+            dates = GetLastFirstDates(monthDate.getTime());
+        } else {
+            dates = GetLastFirstDates();
+        }
+        let { firstDay, lastDay } = dates;
+
+        let query = await getConnection()
+                .createQueryBuilder()
+                .select([ "entities.id", "entities.greatfullness", "entities.affirmation", "entities.date" ])
+                .from(Journal, "entities")
+                .where('"entities"."date" BETWEEN :startDate and :endDate', { startDate: firstDay, endDate: lastDay });
+        
+        let result = await query.getMany(), journalObj:GetAllJournalOutput, text, title;
+        
+        let output:GetAllJournalOutput[] = result.map( (journal, index) => {
+            // taking greatfullness for every 3rd day
+            if(index % 3 === 0) {
+                text = journal.greatfullness;
+                title = titles.greatfullness!;
+            } else {
+                text = journal.affirmation;
+                title = titles.affirmation!;
+            }
+            
+            journalObj = {
+                id: journal.id,
+                date: journal.date,
+                title: title,
+                text: text
+            }
+            return journalObj;
+        })
+
+        return output;
     }
 }
