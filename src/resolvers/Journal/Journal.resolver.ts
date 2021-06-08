@@ -1,7 +1,7 @@
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 import { Journal } from "../../entities/Journal";
 import { GetLastFirstDates } from "./GetLastFirstDates";
-import { JournalInput, GetAllJournalOutput } from "./JournalTypes";
+import { JournalInput, FormattedJournalOutput } from "./JournalTypes";
 import { getConnection } from "typeorm";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
@@ -51,10 +51,28 @@ export class JournalResolver {
         return journal
     }
     
-    @Query( () => [GetAllJournalOutput])
+    @Query( () => [Journal])
     async getAllJournals(
         @Arg('monthDate', { nullable: true }) monthDate?: Date
-    ): Promise<GetAllJournalOutput[]> {
+    ): Promise<Journal[]> {
+        let dates;
+        if(monthDate) {
+            dates = GetLastFirstDates(monthDate.getTime());
+        } else {
+            dates = GetLastFirstDates();
+        }
+        let { firstDay, lastDay } = dates;
+
+        return Journal.createQueryBuilder('entities')
+            .where('"entities"."date" BETWEEN :startDate and :endDate', { startDate: firstDay, endDate: lastDay })
+            .orderBy('date','DESC')
+            .getMany();
+    }
+
+    @Query( () => [FormattedJournalOutput])
+    async getFormattedJournals(
+        @Arg('monthDate', { nullable: true }) monthDate?: Date
+    ): Promise<FormattedJournalOutput[]> {
         let dates;
         if(monthDate) {
             dates = GetLastFirstDates(monthDate.getTime());
@@ -67,11 +85,12 @@ export class JournalResolver {
                 .createQueryBuilder()
                 .select([ "entities.id", "entities.greatfullness", "entities.affirmation", "entities.date" ])
                 .from(Journal, "entities")
-                .where('"entities"."date" BETWEEN :startDate and :endDate', { startDate: firstDay, endDate: lastDay });
+                .where('"entities"."date" BETWEEN :startDate and :endDate', { startDate: firstDay, endDate: lastDay })
+                .orderBy('date','DESC');
         
-        let result = await query.getMany(), journalObj:GetAllJournalOutput, text, title;
+        let result = await query.getMany(), journalObj:FormattedJournalOutput, text, title;
         
-        let output:GetAllJournalOutput[] = result.map( (journal, index) => {
+        let output:FormattedJournalOutput[] = result.map( (journal, index) => {
             // taking greatfullness for every 3rd day
             if(index % 3 === 0) {
                 text = journal.greatfullness;

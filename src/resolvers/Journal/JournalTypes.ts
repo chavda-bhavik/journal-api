@@ -23,7 +23,7 @@ export class JournalInput {
 }
 
 @ObjectType()
-export class GetAllJournalOutput {
+export class FormattedJournalOutput {
     @Field(() => Int)
     id: number;
 
@@ -35,4 +35,28 @@ export class GetAllJournalOutput {
 
     @Field(() => String, { nullable: true })
     text: String;
+}
+
+@ObjectType()
+export class AllJournalsOutput {
+    @Field(() => Int)
+    id: Number;
+
+    @Field(() => String)
+    date: Date;
+
+    @Field(() => String, { nullable: true })
+    actions: string;
+
+    @Field(() => String, { nullable: true })
+    greatfullness: string;
+
+    @Field(() => String, { nullable: true })
+    affirmation: string;
+
+    @Field(() => String, { nullable: true })
+    highlights: string;
+
+    @Field(() => String, { nullable: true })
+    improvements: string;
 }
