@@ -15,11 +15,13 @@ export class JournalInput {
     affirmation: string;
 
     @Field({ nullable: true })
-
     highlights: string;
 
     @Field({ nullable: true })
     improvements: string;
+
+    @Field( () => Int, { nullable: true  })
+    status: number;
 }
 
 @ObjectType()

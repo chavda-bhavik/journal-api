@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, Int, ObjectType } from "type-graphql";
 import {
     BaseEntity,
     Column,
@@ -38,6 +38,10 @@ export class Journal extends BaseEntity {
     @Field(() => String)
     @Column({ type: Date, default: new Date() })
     date: Date;
+
+    @Field(() => Int)
+    @Column({ type: Number, default: 0 })
+    status: Number;
 
     @Field(() => String)
     @CreateDateColumn()
