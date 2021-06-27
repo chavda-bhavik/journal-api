@@ -55,18 +55,15 @@ export class JournalResolver {
     async getAllJournals(
         @Arg('monthDate', { nullable: true }) monthDate?: Date
     ): Promise<Journal[]> {
-        let dates;
+        let query = Journal.createQueryBuilder('entities');
         if(monthDate) {
+            let dates;
             dates = GetLastFirstDates(monthDate.getTime());
-        } else {
-            dates = GetLastFirstDates();
+            let { firstDay, lastDay } = dates;
+            query.where('"entities"."date" BETWEEN :startDate and :endDate', { startDate: firstDay, endDate: lastDay })
         }
-        let { firstDay, lastDay } = dates;
 
-        return Journal.createQueryBuilder('entities')
-            .where('"entities"."date" BETWEEN :startDate and :endDate', { startDate: firstDay, endDate: lastDay })
-            .orderBy('date','DESC')
-            .getMany();
+        return query.orderBy('date','DESC').getMany();
     }
 
     @Query( () => [FormattedJournalOutput])
