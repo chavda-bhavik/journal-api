@@ -3,6 +3,9 @@ import { Field, InputType, ObjectType, Int } from "type-graphql";
 @InputType()
 export class JournalInput {
     @Field()
+    id: string;
+
+    @Field()
     date: Date;
 
     @Field({ nullable: true })
@@ -26,8 +29,8 @@ export class JournalInput {
 
 @ObjectType()
 export class FormattedJournalOutput {
-    @Field(() => Int)
-    id: number;
+    @Field(() => String)
+    id: string;
 
     @Field(() => String)
     date: Date;

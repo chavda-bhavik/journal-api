@@ -4,7 +4,7 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    PrimaryGeneratedColumn,
+    PrimaryColumn,
     UpdateDateColumn
 } from "typeorm";
 
@@ -12,8 +12,8 @@ import {
 @Entity()
 export class Journal extends BaseEntity {
     @Field()
-    @PrimaryGeneratedColumn()
-    id!: number;
+    @PrimaryColumn("uuid", { unique: true })
+    id!: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true, type: "text" })
@@ -36,7 +36,7 @@ export class Journal extends BaseEntity {
     improvements!: string;
 
     @Field(() => String)
-    @Column({ type: Date, default: new Date() })
+    @Column({ type: Date, default: new Date(), unique: true })
     date: Date;
 
     @Field(() => Int)

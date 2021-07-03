@@ -1,4 +1,4 @@
-import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Journal } from "../../entities/Journal";
 import { GetLastFirstDates } from "./GetLastFirstDates";
 import { JournalInput, FormattedJournalOutput } from "./JournalTypes";
@@ -21,11 +21,15 @@ export class JournalResolver {
         let newJournal:Journal;
         if(journal) {
             // edit journal
-            let editValues:PartialBy<JournalInput, 'date'> = { ...values };
+            let editValues:PartialBy<JournalInput, 'date' | 'id'> = { ...values };
             delete editValues?.date;
+            delete editValues?.id;
             Object.assign(journal, editValues);
             newJournal = await journal.save();
         } else {
+            // throw error if id already exists for new date journal
+            let idCount = await Journal.count({ where: { id: values.id }});
+            if(idCount > 0) throw new Error("Id already exists");
             // create journal
             newJournal = await Journal.create(values);
             await newJournal.save();
@@ -36,7 +40,7 @@ export class JournalResolver {
     @Query( () => Journal, { name: "journal" })
     async getJournal(
         @Arg('date', { nullable: true }) date: Date,
-        @Arg('id', () => Int, { nullable: true }) id:number
+        @Arg('id', () => String, { nullable: true }) id:string
     ): Promise<Journal> {
         if(!date && !id) {
             throw new Error("Either journal date or id is required!")
