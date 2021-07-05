@@ -112,4 +112,26 @@ export class JournalResolver {
 
         return output;
     }
+
+    @Mutation( () => Journal, { name: "deleteJournal" })
+    async deleteJournal(
+        @Arg('date', { nullable: true }) date: Date,
+        @Arg('id', () => String, { nullable: true }) id:string
+    ): Promise<Journal> {
+        if(!date && !id) {
+            throw new Error("Either journal date or id is required!")
+        }
+        let journal:Journal | undefined;
+        if(date) {
+            journal = await Journal.findOne({ date });
+            if(journal) {
+                journal?.remove();
+                return journal;
+            }
+        }
+        journal = await Journal.findOne({ id });
+        if(!journal) throw new Error('Journal not found');
+        journal?.remove();
+        return journal
+    }
 }
