@@ -3,6 +3,8 @@ import { Journal } from "../../entities/Journal";
 import { GetLastFirstDates } from "./GetLastFirstDates";
 import { JournalInput, FormattedJournalOutput } from "./JournalTypes";
 import { getConnection } from "typeorm";
+import { uploadFile } from "../../util/uploadFile";
+// import { FileUpload, GraphQLUpload } from "graphql-upload";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
@@ -21,9 +23,13 @@ export class JournalResolver {
         let newJournal:Journal;
         if(journal) {
             // edit journal
-            let editValues:PartialBy<JournalInput, 'date' | 'id'> = { ...values };
+            let editValues:PartialBy<JournalInput, 'date' | 'id' | 'image'> = { ...values };
             delete editValues?.date;
             delete editValues?.id;
+            if(editValues.image && typeof editValues.image !== 'string') {
+                let image = await uploadFile(editValues.image);
+                editValues.image = image;
+            }
             Object.assign(journal, editValues);
             newJournal = await journal.save();
         } else {
@@ -31,7 +37,13 @@ export class JournalResolver {
             let idCount = await Journal.count({ where: { id: values.id }});
             if(idCount > 0) throw new Error("Id already exists");
             // create journal
-            newJournal = await Journal.create(values);
+            let newValues = { ...values };
+            if(values.image && typeof values.image !== 'string') {
+                let image = await uploadFile(values.image);
+                newValues.image = image;
+            }
+            // @ts-ignore
+            newJournal = await Journal.create(newValues);
             await newJournal.save();
         }
         return newJournal;

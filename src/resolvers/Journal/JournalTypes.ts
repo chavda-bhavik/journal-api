@@ -1,3 +1,4 @@
+import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { Field, InputType, ObjectType, Int } from "type-graphql";
 
 @InputType()
@@ -25,6 +26,21 @@ export class JournalInput {
 
     @Field( () => Int, { nullable: true  })
     status: number;
+
+    @Field(() => GraphQLUpload, { nullable: true })
+    image: FileUpload | string;
+}
+
+export type TempJournal = {
+    id: string;
+    date: Date;
+    actions: string;
+    greatfullness: string;
+    affirmation: string;
+    highlights: string;
+    improvements: string;
+    status: number;
+    image: string | FileUpload;
 }
 
 @ObjectType()

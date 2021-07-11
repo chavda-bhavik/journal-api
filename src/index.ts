@@ -8,6 +8,7 @@ import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import { COOKIE_NAME, __prod__ } from "./constants";
+import { graphqlUploadExpress } from "graphql-upload";
 
 const main = async () => {
     const options = await getConnectionOptions(
@@ -50,7 +51,9 @@ const main = async () => {
             req,
             res
         }),
+        uploads: false
     });
+    app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
     apolloServer.applyMiddleware({
         app,
         cors: false,

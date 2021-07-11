@@ -43,6 +43,10 @@ export class Journal extends BaseEntity {
     @Column({ type: Number, default: 0 })
     status: Number;
 
+    @Field(() => String, { nullable: true })
+    @Column({ type: "text", nullable: true })
+    image: string;
+
     @Field(() => String)
     @CreateDateColumn()
     createdAt: Date;
