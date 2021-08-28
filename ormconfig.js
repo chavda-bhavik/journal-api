@@ -33,9 +33,15 @@ module.exports = [
       url: process.env.DATABASE_URL,
       synchronize: true, // switch this to false once you have the initial tables created and use migrations instead
       logging: false,
-      entities: ["dist/entity/**/*.js"],
-      migrations: ["dist/migration/**/*.js"],
-      subscribers: ["dist/subscriber/**/*.js"],
+      ssl:true,
+      entities: ["dist/entities/*.js"],
+      migrations: ["src/migration/*.ts"],
+      subscribers: ["src/subscriber/*.ts"],
+      extra: {
+        ssl: {
+          rejectUnauthorized: false
+        }
+      },
       cli: {
         entitiesDir: "dist/entity",
         migrationsDir: "dist/migration",
