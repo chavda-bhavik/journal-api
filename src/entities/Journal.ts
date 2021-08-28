@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 
 @ObjectType()
-@Entity({ name: "journal_journal" })
+@Entity()
 export class Journal extends BaseEntity {
     @Field()
     @PrimaryColumn("uuid", { unique: true })

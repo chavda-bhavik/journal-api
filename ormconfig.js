@@ -8,7 +8,7 @@ module.exports = [
       password: "power",
       synchronize: true,
       logging: true,
-      entities: ["dist/journal/entities/*.js"],
+      entities: ["dist/entities/*.js"],
       migrations: ["src/migration/*.ts"],
       subscribers: ["src/subscriber/*.ts"],
       cli: {
