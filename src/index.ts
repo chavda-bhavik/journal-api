@@ -8,6 +8,7 @@ import { __prod__ } from "./constants";
 import { graphqlUploadExpress } from "graphql-upload";
 
 const main = async () => {
+    const PORT = process.env.PORT || 4000;
     const options = await getConnectionOptions(
         process.env.NODE_ENV || "development"
     );
@@ -34,8 +35,8 @@ const main = async () => {
         app,
         cors: false,
     });
-    app.listen(4000, () => {
-        console.log(`Server running on port 4000`);
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
     });
 }
 
