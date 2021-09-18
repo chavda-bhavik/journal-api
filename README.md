@@ -21,4 +21,33 @@
   
   <dt>🧪 Testing</dt>
   <dd><a href="https://jestjs.io/" target="_blank">jest</a></dd>
+  
+  <dt>☁️ File Upload</dt>
+  <dd><a href="https://www.npmjs.com/package/graphql-upload" target="_blank">graphql-upload</a></dd>
 </dl>
+
+## ✨ Features
+* **Easily Scallable**
+* Uploading and storing images in database
+* Built using typescript for lesser errors
+* Seperate test environment
+
+## 📩 Install
+```sh
+yarn install
+```
+
+## 💨 Run
+```sh
+yarn watch
+yarn dev
+```
+
+## 😎 Author
+
+👤 **Bhavik Chavda**
+
+* Website: bhavikchavda.com
+* Twitter: [@heybhavik](https://twitter.com/heybhavik)
+* Github: [@chavda-bhavik](https://github.com/chavda-bhavik)
+* LinkedIn: [@heybhavik](https://linkedin.com/in/heybhavik)
