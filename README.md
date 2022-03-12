@@ -1,7 +1,7 @@
 <div align="center">
   <h2>5-Minute-Journal Clone</h2>
 
-  ### GraphQL API built in NodeJS for 5-Minute-Journal
+  ### GraphQL API built in NodeJS for 5-Minute-Journal App
   
   ![journal-clone](https://user-images.githubusercontent.com/50201755/158015063-97cd6059-7920-4b48-98f1-55368db55f47.gif)
 
