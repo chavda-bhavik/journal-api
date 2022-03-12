@@ -1,53 +1,46 @@
-<h1 align="center">Welcome to API built for <a href="https://github.com/chavda-bhavik/journal-web">5 Minute Journal Clone</a> 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://twitter.com/heybhavik" target="_blank">
-    <img alt="Twitter: heybhavik" src="https://img.shields.io/twitter/follow/heybhavik.svg?style=social" />
-  </a>
-</p>
+<div align="center">
+  <h2>RepsCountere</h2>
 
-> API for **5 Minute Journal Clone**, built using typeorm and apollo-graphql.
-
-## 🍱 Things used for building
-<dl>
-  <dt>💹 Graphql Server using expressjs and apollo</dt>
-  <dd><a href="https://www.apollographql.com/" target="_blank">apollographql</a>, <a href="https://expressjs.com/" target="_blank">expressjs</a></dd>
+  ### GraphQL API built in NodeJS for 5-Minute-Journal
   
-  <dt>🗃️ ORM</dt>
-  <dd><a href="https://typeorm.io" target="_blank">typeorm</a></dd>
-  
-  <dt>🔐 Validation</dt>
-  <dd><a href="https://www.npmjs.com/package/yup" target="_blank">yup</a></dd>
-  
-  <dt>🧪 Testing</dt>
-  <dd><a href="https://jestjs.io/" target="_blank">jest</a></dd>
-  
-  <dt>☁️ File Upload</dt>
-  <dd><a href="https://www.npmjs.com/package/graphql-upload" target="_blank">graphql-upload</a></dd>
-</dl>
+  ![journal-clone](https://user-images.githubusercontent.com/50201755/158015063-97cd6059-7920-4b48-98f1-55368db55f47.gif)
 
-## ✨ Features
-* **Easily Scallable**
-* Uploading and storing images in database
-* Built using typescript for lesser errors
-* Seperate test environment
+  <a href="https://journal-clone.herokuapp.com" target="_blank">Live demo</a> | <a href="https://github.com/chavda-bhavik/journal" target="_blank">Frontend Code</a>
+</div>
 
-## 📩 Install
-```sh
-yarn install
-```
 
-## 💨 Run
-```sh
-yarn watch
-yarn dev
-```
+## Running locally
 
-## 😎 Author
+### Setup
+* Create postgress database named **journal** and **journal-test**
+* Update database credentials in **ormconfig.js**
 
-👤 **Bhavik Chavda**
+### Steps
+- `git clone https://github.com/chavda-bhavik/journal-api`
+- `yarn` (after navigating inside the directory)
+- `yarn watch && yarn dev`
+- `yarn test` (To run tests)
 
-* Website: bhavikchavda.com
-* Twitter: [@heybhavik](https://twitter.com/heybhavik)
-* Github: [@chavda-bhavik](https://github.com/chavda-bhavik)
-* LinkedIn: [@heybhavik](https://linkedin.com/in/heybhavik)
+----
+
+## About 5-Minute-Journal Clone
+
+### Features
+- Built on Typescript
+- Tests written using **jest**
+- Abstracted Database functions to easy the Development
+- Linting and formatting with **eslint** and **prettier**
+
+## Problems Face and Solved
+- Writing Unit tests with Jest provided good learning
+
+## Technologies 🤖
+<ul>
+  <li><a href="https://www.npmjs.com/package/apollo-server-express" target="_blank">Apllo-Server-Express</a>, <a href="https://expressjs.com" target="_blank">ExpressJS</a> To Develop API</li>
+  <li><a href="https://typeorm.io" target="_blank">Typeorm</a> ORM to interect with Database</li>
+  <li><a href="https://www.npmjs.com/package/graphql-upload" target="_blank">graphql-upload</a> To provide file upload facility</li>
+  <li><a href="https://typegraphql.com" target="_blank">TypeGraphql</a> To build Graphql Schema from Classes</li>
+  <li><a href="https://jestjs.io" target="_blank">JestJS</a> To wite Unit Test Cases</li>
+</ul>
+
+------------
