@@ -1,5 +1,5 @@
 <div align="center">
-  <h2>RepsCountere</h2>
+  <h2>5-Minute-Journal Clone</h2>
 
   ### GraphQL API built in NodeJS for 5-Minute-Journal
   
